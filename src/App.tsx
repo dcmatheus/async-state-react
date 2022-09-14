@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import Home from './Home'
 
 const config = {
-  initialColorMode: 'Dark',
+  initialColorMode: 'dark',
   useSystemColorMode: false
 }
 

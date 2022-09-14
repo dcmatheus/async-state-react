@@ -1,8 +1,12 @@
-import { Flex, Image, Text } from '@chakra-ui/react'
+import { Badge, Flex, Image, Link, Text } from '@chakra-ui/react'
+import { useRepos } from './services/repos'
 import { useUser } from './services/users'
 
+const USERNAME = 'dcmatheus'
+
 function Home () {
-  const { data: user } = useUser('dcmatheus')
+  const { data: user } = useUser(USERNAME)
+  const { data: repos } = useRepos(USERNAME)
   return (
     <Flex direction="column" alignItems="center" paddingTop="32px">
       <Image
@@ -25,6 +29,36 @@ function Home () {
       >
         {user?.bio}
       </Text>
+      <Text
+        fontWeight="bold"
+        fontSize="24px"
+        marginTop="40px"
+      >
+        Últimos 10 repositórios
+      </Text>
+      {
+        repos?.map(repo => (
+          <Link
+            key={repo.name}
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            width="400px"
+            height="48px"
+            backgroundColor="#0e0326"
+            marginTop="16px"
+            paddingLeft="16px"
+            paddingRight="16px"
+            href={repo.html_url}
+            target="_blank"
+            _focus={{ boxShadow: 'none' }}
+            _hover={{ textDecoration: 'none', boxShadow: 'lg' }}
+          >
+            <Text>{repo.name}</Text>
+            <Badge colorScheme="green">{repo.language}</Badge>
+          </Link>
+        ))
+      }
     </Flex>
   )
 }
