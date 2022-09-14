@@ -1,4 +1,5 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import Home from './Home'
 
 const config = {
@@ -8,11 +9,16 @@ const config = {
 
 const theme = extendTheme({ config })
 
+const queryClient = new QueryClient()
+
 function App () {
   return (
-    <ChakraProvider theme={theme}>
-      <Home />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <Home />
+      </ChakraProvider>
+    </QueryClientProvider>
+
   )
 }
 
